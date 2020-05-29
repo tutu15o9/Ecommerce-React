@@ -25,7 +25,7 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     stock: {
-      type: number,
+      type: Number,
     },
     sold: {
       type: Number,
