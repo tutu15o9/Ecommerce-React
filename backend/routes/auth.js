@@ -8,7 +8,7 @@ router.post(
   [
     check("name")
       .isLength({ min: 3 })
-      .withMessage("Must be at least 3 chars long"),
+      .withMessage("Name must be at least 3 chars long"),
     check("email").isEmail().withMessage("Email is required"),
     check("password")
       .isLength({ min: 3 })

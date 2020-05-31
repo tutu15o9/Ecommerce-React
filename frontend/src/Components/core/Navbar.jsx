@@ -27,24 +27,29 @@ const Navbar = ({ history }) => {
             Cart
           </Link>
         </li>
-        <li className="nav-item">
-          <Link
-            style={curentTab(history, "/user/dashboard")}
-            className="nav-link"
-            to="/user/dashboard"
-          >
-            Dashboard
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link
-            style={curentTab(history, "/admin/dashboard")}
-            className="nav-link"
-            to="/admin/dashboard"
-          >
-            A. Dashboard
-          </Link>
-        </li>
+        {isAuthenticated() && isAuthenticated().user.role === 0 && (
+          <li className="nav-item">
+            <Link
+              style={curentTab(history, "/user/dashboard")}
+              className="nav-link"
+              to="/user/dashboard"
+            >
+              Dashboard
+            </Link>
+          </li>
+        )}
+
+        {isAuthenticated() && isAuthenticated().user.role === 1 && (
+          <li className="nav-item">
+            <Link
+              style={curentTab(history, "/user/dashboard")}
+              className="nav-link"
+              to="/admin/dashboard"
+            >
+              Dashboard
+            </Link>
+          </li>
+        )}
 
         {!isAuthenticated() && (
           <Fragment>

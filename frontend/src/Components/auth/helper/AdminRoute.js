@@ -2,12 +2,12 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { isAuthenticated } from "./index";
 
-const privateRoute = ({ component: Component, ...rest }) => {
+const AdminRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
       render={(props) =>
-        isAuthenticated() ? (
+        isAuthenticated() && isAuthenticated().user.role === 1 ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -21,4 +21,4 @@ const privateRoute = ({ component: Component, ...rest }) => {
     />
   );
 };
-export default privateRoute;
+export default AdminRoute;
