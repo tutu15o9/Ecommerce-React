@@ -9,7 +9,7 @@ const {
   deleteProduct,
   updateProduct,
   getAllProducts,
-  getAlldiffCategories
+  getAlldiffCategories,
 } = require("../controllers/product");
 const { isAuthenticated, isSignedIn, isAdmin } = require("../controllers/auth");
 const { getUserById } = require("../controllers/user");
@@ -42,7 +42,7 @@ router.put(
   updateProduct
 );
 // Delete Route
-router.post(
+router.delete(
   "/product/:productId/:userId",
   isSignedIn,
   isAuthenticated,
@@ -52,7 +52,7 @@ router.post(
 
 // Listing route
 
-router.get("/products",getAllProducts);
+router.get("/products", getAllProducts);
 
-router.get("/products",getAlldiffCategories);
+router.get("/products/categories", getAlldiffCategories);
 module.exports = router;

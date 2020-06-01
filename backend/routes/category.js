@@ -27,21 +27,9 @@ router.post(
   createCategory
 );
 // Read Routes
-router.get(
-  "/category/:categoryId/:userId",
-  isSignedIn,
-  isAuthenticated,
-  isAdmin,
-  getCategory
-);
+router.get("/category/:categoryId", getCategory);
 
-router.get(
-  "/category/all/:userId",
-  isSignedIn,
-  isAuthenticated,
-  isAdmin,
-  getAllCategory
-);
+router.get("/categories", getAllCategory);
 // Updates
 router.put(
   "/category/:categoryId/:userId",

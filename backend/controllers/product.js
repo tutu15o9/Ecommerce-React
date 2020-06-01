@@ -4,8 +4,8 @@ const _ = require("lodash");
 const fs = require("fs");
 // Middleware controllers
 exports.getProductById = (req, res, next, id) => {
-  Product.populate("category")
-    .findById(id)
+  Product.findById(id)
+    .populate("categories")
     .exec((err, product) => {
       if (err) {
         return res.status(400).json({
@@ -17,26 +17,26 @@ exports.getProductById = (req, res, next, id) => {
     });
 };
 
-exports.updateStock = (req,res,next)=>{
-  var myOperations = req.body.order.products.map(prod=>{
+exports.updateStock = (req, res, next) => {
+  var myOperations = req.body.order.products.map((prod) => {
     return {
-      updateOne:{
-        filter:{_id: prod._id},
-        update :{$inc: {stock: -prod.count , sold: +prod.count }}
-      }
-    }
+      updateOne: {
+        filter: { _id: prod._id },
+        update: { $inc: { stock: -prod.count, sold: +prod.count } },
+      },
+    };
   });
 
-  Product.bulkWrite(myOperations, {},(err,Products) =>{
+  Product.bulkWrite(myOperations, {}, (err, Products) => {
     if (err) {
       return res.status(400).json({
         error: "Bulk Operation Failed",
       });
     }
-    
+
     next();
-  })
-}
+  });
+};
 
 // Create controllers
 exports.createProduct = (req, res) => {
@@ -98,26 +98,25 @@ exports.photo = (req, res, next) => {
 };
 
 exports.getAllProducts = (req, res) => {
-  let limit = req.query.limit ? parseInt(req.query.limit) : 8
+  let limit = req.query.limit ? parseInt(req.query.limit) : 8;
   let sortBy = req.query.sortBy ? parseInt(req.query.sortBy) : "_id";
-  
-  
+
   Product.find()
-  .select("-phtoto")
-  .populate("category")
-  .limit(limit)
-  .sort([[sortBy,"asc"]])
-  .exec((err, products)=>{
-    if (err) {
-      return res.status(400).json({
-        error: "No product Found.",
-      });
-    }
-  })
+    .select("-phtoto")
+    .populate("category")
+    .sort([[sortBy, "asc"]])
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: "No product Found.",
+        });
+      }
+      res.json(products);
+    });
 };
 
-exports.getAlldiffCategories = (req,res,)=> {
-  Product.distinct("category", {},(err,categories)=>{
+exports.getAlldiffCategories = (req, res) => {
+  Product.distinct("category", {}, (err, categories) => {
     if (err) {
       return res.status(400).json({
         error: "No category Found",
@@ -126,7 +125,7 @@ exports.getAlldiffCategories = (req,res,)=> {
 
     res.json(categories);
   });
-}
+};
 // Delete controllers
 exports.deleteProduct = (req, res, next) => {
   const product = req.product;
@@ -138,7 +137,7 @@ exports.deleteProduct = (req, res, next) => {
     }
     res.json({
       message: "Product deleted.",
-      deletedProduct,
+      product: deletedProduct,
     });
   });
 };

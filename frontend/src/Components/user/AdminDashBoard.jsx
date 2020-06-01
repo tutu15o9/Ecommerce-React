@@ -5,7 +5,7 @@ import { isAuthenticated } from "../auth/helper";
 
 const AdminDashBoard = () => {
   const {
-    user: { name, email, role },
+    user: { name, email },
   } = isAuthenticated();
 
   const adminLeftSide = () => {
@@ -19,12 +19,17 @@ const AdminDashBoard = () => {
             </Link>
           </li>
           <li className="list-group-item">
+            <Link to="/admin/manage/category" className="nav-link text-success">
+              Manage Categories
+            </Link>
+          </li>
+          <li className="list-group-item">
             <Link to="/admin/create/product" className="nav-link text-success">
               Create Product
             </Link>
           </li>
           <li className="list-group-item">
-            <Link to="/admin/products" className="nav-link text-success">
+            <Link to="/admin/manage/products" className="nav-link text-success">
               Manage Products
             </Link>
           </li>

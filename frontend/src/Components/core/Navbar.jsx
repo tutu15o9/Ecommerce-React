@@ -42,7 +42,7 @@ const Navbar = ({ history }) => {
         {isAuthenticated() && isAuthenticated().user.role === 1 && (
           <li className="nav-item">
             <Link
-              style={curentTab(history, "/user/dashboard")}
+              style={curentTab(history, "/admin/dashboard")}
               className="nav-link"
               to="/admin/dashboard"
             >

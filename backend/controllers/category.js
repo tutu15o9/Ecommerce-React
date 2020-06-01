@@ -31,7 +31,7 @@ exports.getCategory = (req, res) => {
 };
 
 exports.getAllCategory = (req, res) => {
-  Category.find({}).exec((err, categories) => {
+  Category.find({}, (err, categories) => {
     if (err) {
       return res.status(400).json({
         error: "No category found in DB",
@@ -64,7 +64,7 @@ exports.deleteCategory = (req, res) => {
       });
     }
     res.json({
-      message: `Successfully Delted ${name}.` 
-    })
+      message: `Successfully Delted ${name}.`,
+    });
   });
-}
+};
