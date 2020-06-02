@@ -14,14 +14,14 @@ const ProductCart = mongoose.model("ProductCart", productCartSchema);
 const orderSchema = new mongoose.Schema(
   {
     products: [productCartSchema],
-    transaction_id: {},
+    transaction_id: { type: String },
     amount: { type: Number },
     address: String,
     updated: Date,
-    status:{
+    status: {
       type: String,
       default: "Recieved",
-      enum:["Cancellend","Delivered", "Shipped", "Processing", "Recieved"]
+      enum: ["Cancellend", "Delivered", "Shipped", "Processing", "Recieved"],
     },
     user: {
       type: ObjectId,

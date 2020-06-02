@@ -67,23 +67,23 @@ exports.pushOrderInPurchaseList = (req, res, next) => {
       category: product.category,
       quantity: product.quantity,
       amount: req.body.order.amount,
-      transaction_id: req.body.order.transaction_id
+      transaction_id: req.body.order.transaction_id,
     });
   });
 
   // Store Data in DB
 
   User.findOneAndUpdate(
-    {_id: req.profile._id},
-    {$push: {purchases:purchases}},
-    {new:true,useFindAndModify:False},
-    (err,purchases)=>{
-      if(err){
+    { _id: req.profile._id },
+    { $push: { purchases: purchases } },
+    { new: true, useFindAndModify: false },
+    (err, purchases) => {
+      if (err) {
         return res.status(400).json({
-          error:"Unable to save purchase list"
+          error: "Unable to save purchase list",
         });
       }
       next();
     }
-  )
+  );
 };

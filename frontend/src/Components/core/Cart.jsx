@@ -4,6 +4,7 @@ import "../../styles.css";
 import Base from "./Base";
 import Card from "./Card";
 import { loadCart } from "./helper/cartHelper";
+import StripeCheckout from "./StripeCheckout";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
@@ -17,29 +18,30 @@ const Cart = () => {
     return (
       <div>
         <h2>This section is to load products</h2>
-        {products.map((product, index) => (
-          <Card
-            key={index}
-            product={product}
-            removeFromCart={true}
-            addtoCart={false}
-            setReload={setReload}
-            reload={reload}
-          />
-        ))}
+        {products !== undefined &&
+          products.map((product, index) => (
+            <Card
+              key={index}
+              product={product}
+              removeFromCart={true}
+              addtoCart={false}
+              setReload={setReload}
+              reload={reload}
+            />
+          ))}
       </div>
     );
   };
   const loadCheckout = () => {
-    return (
-      <div>
-        <h2>This section for checkout</h2>
-      </div>
-    );
+    return <StripeCheckout products={products} setReload={setReload} />;
   };
 
   return (
-    <Base title="Cart Page" description="Ready to checkout">
+    <Base
+      title="Cart Page"
+      description="Ready to checkout"
+      importCss={products === undefined || products.length === 0 ? true : false}
+    >
       <div className="row text-center">
         <div className="col-6">{loadAllProducts()}</div>
         <div className="col-6">{loadCheckout()}</div>

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import Base from "../core/Base";
-import {  Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { isAuthenticated, signin, authenticate } from "../auth/helper/index";
+
+import "../../styles.css";
+
 const Signin = () => {
   const [values, setValues] = useState({
     email: "",
@@ -47,9 +50,9 @@ const Signin = () => {
   const performRedirect = () => {
     if (didRedirect) {
       if (user && user.role === 1) {
-        return <Redirect to ="/admin/dashboard"/>;
+        return <Redirect to="/admin/dashboard" />;
       } else if (user) {
-        return <Redirect to ="/user/dashboard"/>;
+        return <Redirect to="/user/dashboard" />;
       }
     }
     if (isAuthenticated()) {
@@ -113,12 +116,15 @@ const Signin = () => {
     );
   };
   return (
-    <Base title="Signin" description="A page for user to sign in!">
+    <Base
+      title="Signin"
+      description="A page for user to sign in!"
+      importCss={true}
+    >
       {loadingMessage()}
       {errorMessage()}
       {signInForm()}
       {performRedirect()}
-      <p className="text-white text-center">{JSON.stringify(values)}</p>
     </Base>
   );
 };
