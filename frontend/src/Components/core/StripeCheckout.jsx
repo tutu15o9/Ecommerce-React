@@ -72,21 +72,16 @@ const StripeCheckout = ({
         billingAddress
         currency="INR"
       >
-        <button className="btn btn-success">Pay with Stripe</button>
+        <button className="btn btn-block btn-success">Pay with Stripe</button>
       </StripeCheckoutButton>
     ) : (
       <Link to="/signin">
-        <button className="btn btn-warning">Signin</button>
+        <button className="jumbotron btn btn-warning ">Signin</button>
       </Link>
     );
   };
 
-  return (
-    <div>
-      <h3 className="text-white">Stripe Checkout {getTotal()}</h3>
-      {showStripeButton()}
-    </div>
-  );
+  return <div>{showStripeButton()}</div>;
 };
 
 export default StripeCheckout;
